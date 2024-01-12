@@ -18,7 +18,7 @@ from django.contrib.auth.password_validation import validate_password
 
 class ModelTests(TestCase):
     """Test models."""
-
+    # The setUp method is called before each individual test method. It's specifically designed for test case setup and allows you to ensure a clean and isolated state for each test.
     def setUp(self):
         self.UserModel = get_user_model()
     def test_create_user_with_email_successful(self):
