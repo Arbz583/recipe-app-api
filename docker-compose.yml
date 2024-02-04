@@ -10,6 +10,7 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
+      - dev-static-data:/vol/web
     command: >
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
@@ -32,3 +33,8 @@ services:
       - POSTGRES_PASSWORD=supersecretpassword
 volumes:
   dev-db-data:
+  dev-static-data:
+
+# In summary, named volumes are a type of Docker volume managed by Docker, "mount" is a general term for attaching filesystems, and bind mounts are a specific type of mount where a host directory is directly mapped into a container
+# If the path before the colon is an absolute or relative path on your local machine, it is treated as a bind mount. This means that the specified directory on your local machine is directly mounted into the container. but if the path before the colon is not a valid local path or is a named volume (e.g., volume_name:/container/path), Docker treats it as a named volume. Named volumes are managed by Docker, and their data is stored outside the container filesystem.
+# ownership and permissions do not exchange between the container and the local machine during a bind mount. The local machine reflects its own ownership and permissions, and the container reflects the ownership and permissions set by the processes running inside the container.

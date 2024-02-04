@@ -25,3 +25,8 @@ class Command(BaseCommand):
                 time.sleep(1)
 
         self.stdout.write(self.style.SUCCESS('Database available!'))
+
+#  the check method is responsible for performing pre-execution checks (include database availablity), and if any errors are detected during these checks, the handle method will not be called.
+# if check method fail then project stops but if handle method fail not!
+# in testing we use mocked check method not real one!
+# While multiple invocations of the check method are reasonable, it's essential to ensure that these checks do not have side effects that impact the execution of subsequent commands

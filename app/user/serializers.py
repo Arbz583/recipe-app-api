@@ -1,6 +1,7 @@
 """
 Serializers for the user API View.
 """
+# the serializer's responsibility is to take the dictionary-like object obtained from request(request.data, request.user) and convert it into a real Python object and vice versa! converting json to dictionary-like python object and vice versa do automatically with drf not by serializer! (you can not use raw json directly in python)
 from django.contrib.auth import (
     get_user_model,
     authenticate,
@@ -23,6 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """Create and return a user with encrypted password."""
         # if you do not using hashing (set_password) for system then password would be stored in plaintext in database and authenticatin system get to trouble!
+        # our manager do saving instance!
         return get_user_model().objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
@@ -38,6 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 # a more generic serializer is used because it doesn't directly map to a Django model; instead, it handles authentication based on provided credentials.
+# in this case if its view call serializer.save() then you should implement crate and update method (but ObtainAuthToken not)
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user auth token."""
     email = serializers.EmailField()
@@ -64,3 +67,5 @@ class AuthTokenSerializer(serializers.Serializer):
         attrs['user'] = user
         return attrs
 # cleaned data (contain type of fields and their char's numbers) and validated data (extra customize validation with validate method) checks with is_valid() and then store in validated_data
+# The serializer.data attribute returns the serialized representation of the validated data
+# in ObtainAuthToken we have user = serializer.validated_data['user'] so user must be included in validated_data

@@ -44,8 +44,18 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
+class TagAdmin(admin.ModelAdmin):
+    instancemodel = models.Tag
+    def save_model(self, request, obj, form, change):
+        # Check if a tag with the same name already exists
+        existing_tag = self.instancemodel.objects.filter(name=obj.name).first()
+        if not existing_tag:
+            super().save_model(request, obj, form, change)
+
+class IngredientAdmin(TagAdmin):
+    instancemodel = models.Ingredient
 
 admin.site.register(models.User, UserAdmin)
-# admin.site.register(models.Recipe)
-# admin.site.register(models.Tag)
-# admin.site.register(models.Ingredient)
+admin.site.register(models.Recipe)
+admin.site.register(models.Tag, TagAdmin)
+admin.site.register(models.Ingredient, IngredientAdmin)

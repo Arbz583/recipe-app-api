@@ -33,5 +33,5 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
         """Retrieve and return the authenticated user."""
         return self.request.user
 
-# instance = self.get_object() in RetrieveModelMixin
-# When you call serializer.save() in a DRF view, it internally calls the create or update method of the serializer, depending on whether you are creating or updating an instance.
+# instance = self.get_object() in RetrieveModelMixin. it is also pass to serializers in instance
+# When you call serializer.save() in a DRF view, it internally calls the create or update method of the serializer, depending on whether you are creating or updating an instance. so create or update only occur if validation data pass succussfully
