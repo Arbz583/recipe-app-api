@@ -1,0 +1,21 @@
+docker build .
+docker compose build
+docker compose run --rm app sh -c "flake8"
+docker-compose run  --rm app sh -c "python manage.py startapp core"
+docker-compose run  --rm app sh -c "python manage.py test"
+
+
+git add .  (stage all untracked files)
+git commit -m ""     (-m=message)
+git commit -am "Added Github Actions."  (-a=stage all modified  file)
+git checkout --filename       (to unstage)
+git push origin
+git diff app/app/settings.py    (to see changes)
+
+TDD = write the test that drive the development
+with TDD, test your test code (otherwise maybe you write a wrong test and think your code is correct)
+
+
+in a running web application:
+docker-compose -f docker-compose-deploy.yml build app    (only rebuild app services)
+docker-compose -f docker-compose-deploy.yml up --no-deps -d app    (do not restart dependency services)

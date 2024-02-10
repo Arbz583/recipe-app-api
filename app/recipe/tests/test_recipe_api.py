@@ -1,6 +1,6 @@
 # In Django, a queryset serves as an intermediate representation of a database query. It allows you to construct and chain operations to define the query you want to perform. The actual interaction with the database, i.e., the execution of the query, is deferred until the data is explicitly needed. This lazy loading approach is a key aspect of Django's ORM design, providing efficiency by avoiding unnecessary database queries until necessary.
-
-
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import  activate
 
 """
 Tests for recipe APIs.
@@ -46,7 +46,7 @@ def image_upload_url(recipe_id):
 def create_recipe(user, **params):
     """Create and return a sample recipe."""
     defaults = {
-        'title': 'Sample recipe title',
+        'title': 'title',
         'time_minutes': 22,
         'price': Decimal('5.25'),
         'description': 'Sample description',
@@ -433,6 +433,21 @@ class PrivateRecipeApiTests(TestCase):
         self.assertIn(s1.data, res.data)
         self.assertIn(s2.data, res.data)
         self.assertNotIn(s3.data, res.data)
+
+    def test_get_recipe_detail_translations(self):
+        # Test translation for English and Persian
+        recipe = create_recipe(user=self.user)
+#, HTTP_ACCEPT_LANGUAGE='fa'
+        url = detail_url(recipe.id)
+        # with self.settings(LANGUAGE_CODE='fa'):
+        activate('fa')
+        res = self.client.get(url, HTTP_ACCEPT_LANGUAGE='fa')
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(_('title'), 'عنوان')
+        self.assertEqual(res.data['title'], 'عنوان')
+        self.assertEqual(_('sample'), 'نمونه')
+            # self.assertEqual(_('hi'), 'hi')
+            # self.assertEqual(_('hi'), 'سلام')
 
 
 class ImageUploadTests(TestCase):

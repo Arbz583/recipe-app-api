@@ -8,7 +8,7 @@ from core.models import (
     Tag,
     Ingredient,
 )
-
+from django.utils.translation import gettext_lazy as _
 
 class IngredientSerializer(serializers.ModelSerializer):
     """Serializer for ingredients."""
@@ -35,7 +35,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     # required by default is False that means you can skip that when sending payload but in nested serializer default is True!
     tags = TagSerializer(many=True, required=False)
     ingredients = IngredientSerializer( many=True, required=False)
-
+    # title = serializers.CharField(label=_("Title"))
     class Meta:
         model = Recipe
         # fields in here are for get, put, patch. for post you should provide all required fields in your model.
@@ -113,3 +113,9 @@ class RecipeImageSerializer(serializers.ModelSerializer):
         fields = ['id', 'image']
         read_only_fields = ['id']
         extra_kwargs = {'image': {'required': 'True'}}
+
+
+
+
+# When you access serializer.data, Django REST Framework internally calls the to_representation() method to convert the validated data into a dictionary format suitable for serialization. This dictionary contains the serialized representation of the data based on the serializer's fields and any custom logic defined in the serializer. The final process of converting the dictionary representation of the serialized data into JSON typically happens outside of the serializer, usually within the Django REST Framework's response handling mechanism.
+# In summary, while the serializer is responsible for creating the dictionary representation of the serialized data (serializer.data), the actual process of converting this dictionary into JSON typically occurs outside of the serializer, as part of Django REST Framework's response handling mechanism.

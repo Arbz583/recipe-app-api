@@ -1,0 +1,34 @@
+uwsgi_param QUERY_STRING $query_string;
+uwsgi_param REQUEST_METHOD $request_method;
+uwsgi_param CONTENT_TYPE $content_type;
+uwsgi_param CONTENT_LENGTH $content_length;
+uwsgi_param REQUEST_URI $request_uri;
+uwsgi_param PATH_INFO $document_uri;
+uwsgi_param DOCUMENT_ROOT $document_root;
+uwsgi_param SERVER_PROTOCOL $server_protocol;
+uwsgi_param REMOTE_ADDR $remote_addr;
+uwsgi_param REMOTE_PORT $remote_port;
+uwsgi_param SERVER_ADDR $server_addr;
+uwsgi_param SERVER_PORT $server_port;
+uwsgi_param SERVER_NAME $server_name;
+
+
+
+
+# These uwsgi_param directives in NGINX configuration are used to set environment variables that are passed to the uWSGI server. These variables are essential for the uWSGI server to have context about the incoming request. Let's break down each one:
+
+    uwsgi_param QUERY_STRING $query_string;: Sets the QUERY_STRING variable to the value of the query string in the request URL.
+    uwsgi_param REQUEST_METHOD $request_method;: Sets the REQUEST_METHOD variable to the HTTP request method (e.g., GET, POST, etc.).
+    uwsgi_param CONTENT_TYPE $content_type;: Sets the CONTENT_TYPE variable to the value of the Content-Type header in the request.
+    uwsgi_param CONTENT_LENGTH $content_length;: Sets the CONTENT_LENGTH variable to the length of the request body.
+    uwsgi_param REQUEST_URI $request_uri;: Sets the REQUEST_URI variable to the original request URI.
+    uwsgi_param PATH_INFO $document_uri;: Sets the PATH_INFO variable to the URI path component of the request.
+    uwsgi_param DOCUMENT_ROOT $document_root;: Sets the DOCUMENT_ROOT variable to the root directory of the document tree.
+    uwsgi_param SERVER_PROTOCOL $server_protocol;: Sets the SERVER_PROTOCOL variable to the protocol and version of the request (e.g., HTTP/1.1).
+    uwsgi_param REMOTE_ADDR $remote_addr;: Sets the REMOTE_ADDR variable to the IP address of the client making the request.
+    uwsgi_param REMOTE_PORT $remote_port;: Sets the REMOTE_PORT variable to the port number of the client making the request.
+    uwsgi_param SERVER_ADDR $server_addr;: Sets the SERVER_ADDR variable to the IP address of the server handling the request.
+    uwsgi_param SERVER_PORT $server_port;: Sets the SERVER_PORT variable to the port number of the server handling the request.
+    uwsgi_param SERVER_NAME $server_name;: Sets the SERVER_NAME variable to the server name as defined by the server_name directive in the NGINX configuration.
+
+These parameters are essential for the uWSGI server to process the incoming request correctly and provide appropriate responses. They provide various details about the request such as headers, request method, URI, and client/server information.

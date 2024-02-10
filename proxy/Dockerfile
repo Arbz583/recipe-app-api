@@ -1,5 +1,5 @@
 FROM nginxinc/nginx-unprivileged:1-alpine
-LABEL maintainer="londonappdeveloper.com"
+LABEL maintainer="arbz.92"
 
 COPY ./default.conf.tpl /etc/nginx/default.conf.tpl
 COPY ./uwsgi_params /etc/nginx/uwsgi_params
@@ -22,3 +22,6 @@ VOLUME /vol/static
 USER nginx
 
 CMD ["/run.sh"]
+
+
+# touch command only is for change its ownership

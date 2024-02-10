@@ -22,7 +22,7 @@ ARG DEV=false
 # if we don't assign django-user to it, then they're going to be created under the root user and then when we run our application in the django-user, we're not going to be able to access the directory to make changes.
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
-    apk add --update --no-cache postgresql-client jpeg-dev && \
+    apk add --update --no-cache postgresql-client jpeg-dev gettext && \
     apk add --update --no-cache --virtual .tmp-build-deps \
         build-base postgresql-dev musl-dev zlib zlib-dev linux-headers && \
     /py/bin/pip install -r /tmp/requirements.txt && \
@@ -39,7 +39,11 @@ RUN python -m venv /py && \
     mkdir -p /vol/web/static && \
     chown -R django-user:django-user /vol && \
     chmod -R 755 /vol && \
-    chmod -R +x /scripts   # x=executable
+    chmod -R +x /scripts \
+
+
+
+# x=executable
 
 #     7 (Read + Write + Execute) for the owner.
 #     5 (Read + Execute) for the group.
@@ -53,4 +57,5 @@ ENV PATH="/scripts:/py/bin:$PATH"
 USER django-user
 
 # this line execute when container starts and is actually 'sh ../scripts/run.sh' but if you have a shebang in your script and change its executable mode then you do not need to use sh, also if you add scripts directory to environment variable then you do not need to use full path.
+# in docker-compose.yml we use command that is proceed.
 CMD ["run.sh"]

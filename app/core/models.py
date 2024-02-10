@@ -11,7 +11,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-
+from django.utils.translation import gettext_lazy as _
 # the convention of including the instance argument in file path functions in Django is reasonable because it allows you to access attributes and fields of the model instance if needed when constructing the file path. it is not optional though!
 # With a custom file path function, you have the flexibility to define the storage path and filename based on specific requirements. This allows for a more customized and tailored approach to organizing files.
 # Unique paths add a level of security by making it more difficult for unauthorized users to guess file locations.
@@ -73,7 +73,7 @@ class Recipe(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    title = models.CharField(max_length=255)
+    title = models.CharField(_('title'), max_length=255)
     # empty is allowed and if you do not send it set empty string "" in database.
     description = models.TextField(blank=True)
     time_minutes = models.IntegerField()

@@ -11,7 +11,7 @@ uwsgi --socket :9000 --workers 4 --master --enable-threads --module app.wsgi
 
 # It listens for incoming requests on port 9000.
 # It spawns 4 worker processes to handle incoming requests.
-# It enables the master process to manage the worker processes.
+# It enables the master(daemon) process to manage the worker processes.
 # It enables support for multithreading within each worker process.
 # It serves the WSGI application defined in the app.wsgi module that is entry point for our project.
 # The app.wsgi module is responsible for creating the WSGI application object, which is typically named application. This object is responsible for handling incoming HTTP requests and generating responses. When uWSGI loads the specified module using the --module option, it expects to find this application object, which it will then serve to handle incoming requests.
