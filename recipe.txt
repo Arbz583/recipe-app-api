@@ -19,3 +19,6 @@ with TDD, test your test code (otherwise maybe you write a wrong test and think 
 in a running web application:
 docker-compose -f docker-compose-deploy.yml build app    (only rebuild app services)
 docker-compose -f docker-compose-deploy.yml up --no-deps -d app    (do not restart dependency services)
+
+
+docker-compose down --volumes  (clear volumes)

@@ -1,1 +1,3 @@
+# refactoring and linting modules
 flake8>=7.0.0,<7.1.0
+black>=24.1.1,<24.2
